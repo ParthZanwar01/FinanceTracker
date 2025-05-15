@@ -1,7 +1,7 @@
-// SavingsAccount - extends Account
+
 public class SavingsAccount extends Account {
-    private static final double ANNUAL_INTEREST_RATE = 0.025; // 2.5% interest
-    private static final int WITHDRAWAL_LIMIT = 6; // Monthly withdrawal limit
+    private static final double ANNUAL_INTEREST_RATE = 0.025;
+    private static final int WITHDRAWAL_LIMIT = 6;
 
     private int withdrawalsThisMonth;
 
@@ -13,7 +13,7 @@ public class SavingsAccount extends Account {
     public void applyMonthlyInterest() {
         double interest = getBalance() * (ANNUAL_INTEREST_RATE / 12);
         setBalance(getBalance() + interest);
-        // Reset monthly withdrawal count
+
         withdrawalsThisMonth = 0;
     }
 
@@ -33,7 +33,7 @@ public class SavingsAccount extends Account {
         }
 
         if (amount > getBalance()) {
-            return false; // No overdraft on savings
+            return false;
         }
 
         setBalance(getBalance() - amount);

@@ -1,4 +1,4 @@
-// Client class
+
 public class Client {
     private String id;
     private String firstName;
@@ -14,7 +14,7 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
-    // Getters
+
     public String getId() {
         return id;
     }
@@ -39,7 +39,7 @@ public class Client {
         return phoneNumber;
     }
 
-    // Setters
+
     public void setEmail(String email) {
         this.email = email;
     }

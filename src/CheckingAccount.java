@@ -1,4 +1,4 @@
-// CheckingAccount - extends Account
+
 public class CheckingAccount extends Account {
     private static final double OVERDRAFT_FEE = 35.0;
     private static final double OVERDRAFT_LIMIT = -100.0;
@@ -24,12 +24,11 @@ public class CheckingAccount extends Account {
 
         double newBalance = getBalance() - amount;
 
-        // Check if withdrawal would exceed overdraft limit
         if (newBalance < OVERDRAFT_LIMIT) {
             return false;
         }
 
-        // Apply overdraft fee if the balance goes negative
+
         if (newBalance < 0 && getBalance() >= 0) {
             newBalance -= OVERDRAFT_FEE;
         }
