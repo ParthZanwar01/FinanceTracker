@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MoneyMentor - Personal Finance Tracker</title>
+    <title>FinStart - Personal Finance Tracker</title>
     <style>
       :root {
         --primary: #2563eb;
@@ -22,12 +22,16 @@
       }
 
 
+
+
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
       }
+
+
 
 
       body {
@@ -37,6 +41,8 @@
         display: flex;
         flex-direction: column;
       }
+
+
 
 
       header {
@@ -50,6 +56,8 @@
       }
 
 
+
+
       .logo {
         display: flex;
         align-items: center;
@@ -59,11 +67,15 @@
       }
 
 
+
+
       nav ul {
         display: flex;
         list-style: none;
         gap: 1.5rem;
       }
+
+
 
 
       nav a {
@@ -76,10 +88,14 @@
       }
 
 
+
+
       nav a:hover,
       nav a.active {
         background-color: var(--primary-dark);
       }
+
+
 
 
       main {
@@ -91,12 +107,16 @@
       }
 
 
+
+
       .dashboard {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 1.5rem;
         margin-bottom: 2rem;
       }
+
+
 
 
       .card {
@@ -108,10 +128,14 @@
       }
 
 
+
+
       .card:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       }
+
+
 
 
       .card-title {
@@ -125,6 +149,8 @@
       }
 
 
+
+
       .card-balance {
         font-size: 2rem;
         font-weight: 700;
@@ -133,11 +159,15 @@
       }
 
 
+
+
       .card-actions {
         display: flex;
         gap: 0.5rem;
         margin-top: 1rem;
       }
+
+
 
 
       button {
@@ -155,9 +185,13 @@
       }
 
 
+
+
       button:hover {
         background-color: var(--primary-dark);
       }
+
+
 
 
       button.secondary {
@@ -165,9 +199,13 @@
       }
 
 
+
+
       button.secondary:hover {
         background-color: var(--secondary-dark);
       }
+
+
 
 
       button.outline {
@@ -177,10 +215,14 @@
       }
 
 
+
+
       button.outline:hover {
         background-color: var(--primary);
         color: white;
       }
+
+
 
 
       button.danger {
@@ -188,9 +230,13 @@
       }
 
 
+
+
       button.danger:hover {
         background-color: #dc2626;
       }
+
+
 
 
       .transaction-history {
@@ -202,6 +248,8 @@
       }
 
 
+
+
       .section-title {
         font-size: 1.5rem;
         font-weight: 700;
@@ -210,10 +258,14 @@
       }
 
 
+
+
       table {
         width: 100%;
         border-collapse: collapse;
       }
+
+
 
 
       th,
@@ -224,10 +276,14 @@
       }
 
 
+
+
       th {
         color: var(--gray-dark);
         font-weight: 600;
       }
+
+
 
 
       tr:last-child td {
@@ -235,9 +291,13 @@
       }
 
 
+
+
       .transaction-amount {
         font-weight: 600;
       }
+
+
 
 
       .transaction-positive {
@@ -245,9 +305,13 @@
       }
 
 
+
+
       .transaction-negative {
         color: var(--danger);
       }
+
+
 
 
       .badge {
@@ -259,16 +323,22 @@
       }
 
 
+
+
       .badge-checking {
         background-color: var(--primary-light);
         color: white;
       }
 
 
+
+
       .badge-savings {
         background-color: var(--secondary-light);
         color: white;
       }
+
+
 
 
       .modal {
@@ -285,6 +355,8 @@
       }
 
 
+
+
       .modal-content {
         background-color: white;
         border-radius: 1rem;
@@ -295,6 +367,8 @@
       }
 
 
+
+
       .modal-header {
         display: flex;
         justify-content: space-between;
@@ -303,11 +377,15 @@
       }
 
 
+
+
       .modal-title {
         font-size: 1.5rem;
         font-weight: 700;
         color: var(--dark);
       }
+
+
 
 
       .close-modal {
@@ -319,9 +397,13 @@
       }
 
 
+
+
       .form-group {
         margin-bottom: 1.5rem;
       }
+
+
 
 
       label {
@@ -330,6 +412,8 @@
         font-weight: 600;
         color: var(--gray-dark);
       }
+
+
 
 
       input,
@@ -342,12 +426,16 @@
       }
 
 
+
+
       input:focus,
       select:focus {
         outline: none;
         border-color: var(--primary);
         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
       }
+
+
 
 
       .modal-actions {
@@ -358,6 +446,8 @@
       }
 
 
+
+
       .tips-section {
         background-color: white;
         border-radius: 1rem;
@@ -366,12 +456,16 @@
       }
 
 
+
+
       .tips-container {
         display: flex;
         gap: 1.5rem;
         overflow-x: auto;
         padding: 0.5rem 0;
       }
+
+
 
 
       .tip-card {
@@ -384,6 +478,8 @@
       }
 
 
+
+
       .tip-title {
         font-weight: 700;
         margin-bottom: 0.5rem;
@@ -391,11 +487,15 @@
       }
 
 
+
+
       .tip-content {
         color: var(--gray-dark);
         font-size: 0.9rem;
         line-height: 1.5;
       }
+
+
 
 
       .interest-simulator {
@@ -407,11 +507,15 @@
       }
 
 
+
+
       .simulator-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 1.5rem;
       }
+
+
 
 
       .simulator-inputs {
@@ -421,11 +525,15 @@
       }
 
 
+
+
       .simulator-results {
         display: flex;
         flex-direction: column;
         gap: 1rem;
       }
+
+
 
 
       .result-card {
@@ -435,11 +543,15 @@
       }
 
 
+
+
       .result-title {
         font-size: 0.9rem;
         color: var(--gray-dark);
         margin-bottom: 0.25rem;
       }
+
+
 
 
       .result-value {
@@ -449,10 +561,14 @@
       }
 
 
+
+
       .chart-container {
         height: 300px;
         margin-top: 1.5rem;
       }
+
+
 
 
       footer {
@@ -463,9 +579,13 @@
       }
 
 
+
+
       footer p {
         margin-bottom: 1rem;
       }
+
+
 
 
       .footer-links {
@@ -476,10 +596,14 @@
       }
 
 
+
+
       .footer-links a {
         color: var(--gray-light);
         text-decoration: none;
       }
+
+
 
 
       .footer-links a:hover {
@@ -488,15 +612,19 @@
       }
 
 
+
+
       .range-slider {
         width: 100%;
         -webkit-appearance: none;
         height: 8px;
-        border-radius: 4px;
+        border-radius: 20px;
         background: var(--gray-light);
         outline: none;
         margin-top: 0.5rem;
       }
+
+
 
 
       .range-slider::-webkit-slider-thumb {
@@ -504,10 +632,12 @@
         appearance: none;
         width: 20px;
         height: 20px;
-        border-radius: 50%;
+        border-radius: 100%;
         background: var(--primary);
         cursor: pointer;
       }
+
+
 
 
       .range-value {
@@ -518,10 +648,14 @@
       }
 
 
+
+
       @media (max-width: 768px) {
         nav ul {
           gap: 0.5rem;
         }
+
+
 
 
         nav a {
@@ -529,9 +663,13 @@
         }
 
 
+
+
         main {
           padding: 1rem;
         }
+
+
 
 
         .card-balance {
@@ -539,11 +677,15 @@
         }
 
 
+
+
         th,
         td {
           padding: 0.75rem 0.5rem;
           font-size: 0.9rem;
         }
+
+
 
 
         .section-title {
@@ -567,7 +709,7 @@
             fill="white"
           />
         </svg>
-        MoneyMentor
+        FinStart - Sreeshan and Parth
       </div>
       <nav>
         <ul>
@@ -577,8 +719,12 @@
     </header>
 
 
+
+
     <main>
       <h1 class="section-title">Financial Dashboard</h1>
+
+
 
 
       <div class="dashboard">
@@ -596,6 +742,8 @@
         </div>
 
 
+
+
         <div class="card">
           <div class="card-title">
             <span>Savings Account</span>
@@ -610,6 +758,8 @@
             </button>
           </div>
         </div>
+
+
 
 
         <div class="card">
@@ -639,12 +789,16 @@
       </div>
 
 
+
+
       <div class="interest-simulator">
         <h2 class="section-title">Interest Rate Simulator</h2>
         <p>
           See how different interest rates and time periods affect your savings
           growth.
         </p>
+
+
 
 
         <div class="simulator-container">
@@ -659,6 +813,8 @@
                 step="100"
               />
             </div>
+
+
 
 
             <div class="form-group">
@@ -676,6 +832,8 @@
             </div>
 
 
+
+
             <div class="form-group">
               <label for="time-period">Time Period (Years)</label>
               <input
@@ -691,6 +849,8 @@
             </div>
 
 
+
+
             <div class="form-group">
               <label for="monthly-contribution">Monthly Contribution</label>
               <input
@@ -703,10 +863,14 @@
             </div>
 
 
+
+
             <button id="calculate-interest" class="secondary">
               Calculate Growth
             </button>
           </div>
+
+
 
 
           <div class="simulator-results">
@@ -714,6 +878,8 @@
               <div class="result-title">Final Balance</div>
               <div class="result-value" id="final-balance">$11,616.47</div>
             </div>
+
+
 
 
             <div class="result-card">
@@ -724,10 +890,14 @@
             </div>
 
 
+
+
             <div class="result-card">
               <div class="result-title">Interest Earned</div>
               <div class="result-value" id="interest-earned">$616.47</div>
             </div>
+
+
 
 
             <div class="result-card">
@@ -738,8 +908,12 @@
         </div>
 
 
+
+
         <div class="chart-container" id="growth-chart"></div>
       </div>
+
+
 
 
       <div class="transaction-history">
@@ -791,6 +965,8 @@
       </div>
 
 
+
+
       <div class="tips-section">
         <h2 class="section-title">Financial Tips & Tricks</h2>
         <div class="tips-container">
@@ -831,6 +1007,8 @@
     </main>
 
 
+
+
     <!-- Deposit to Checking Modal -->
     <div class="modal" id="deposit-checking-modal">
       <div class="modal-content">
@@ -866,6 +1044,8 @@
     </div>
 
 
+
+
     <!-- Withdraw from Checking Modal -->
     <div class="modal" id="withdraw-checking-modal">
       <div class="modal-content">
@@ -899,6 +1079,8 @@
         </div>
       </div>
     </div>
+
+
 
 
     <!-- Deposit to Savings Modal -->
@@ -938,6 +1120,8 @@
     </div>
 
 
+
+
     <!-- Transfer to Checking Modal -->
     <div class="modal" id="transfer-to-checking-modal">
       <div class="modal-content">
@@ -971,6 +1155,8 @@
     </div>
 
 
+
+
     <!-- Change Interest Rate Modal -->
     <div class="modal" id="change-interest-modal">
       <div class="modal-content">
@@ -1002,6 +1188,8 @@
     </div>
 
 
+
+
     <!-- Edit Budget Modal -->
     <div class="modal" id="edit-budget-modal">
       <div class="modal-content">
@@ -1025,15 +1213,13 @@
     </div>
 
 
+
+
     <footer>
-      <div class="footer-links">
-        <a href="#">About</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Contact</a>
-      </div>
       <p>&copy; 2025 MoneyMentor. All rights reserved.</p>
     </footer>
+
+
 
 
     <script>
@@ -1079,6 +1265,8 @@
       };
 
 
+
+
       // Helper functions
       function formatCurrency(amount) {
         return new Intl.NumberFormat("en-US", {
@@ -1088,6 +1276,8 @@
       }
 
 
+
+
       function formatDate(date) {
         return new Date(date).toLocaleDateString("en-US", {
           month: "short",
@@ -1095,6 +1285,8 @@
           year: "numeric",
         });
       }
+
+
 
 
       function updateUI() {
@@ -1111,11 +1303,15 @@
           state.interestRate;
 
 
+
+
         // Use state values for income/expenses
         document.querySelector("#finance-summary-income").textContent =
           formatCurrency(state.monthlyIncome);
         document.querySelector("#finance-summary-expenses").textContent =
           formatCurrency(state.monthlyExpenses);
+
+
 
 
         // Calculate savings rate
@@ -1130,21 +1326,31 @@
           : "0.0";
 
 
+
+
         // Update transaction table
         const tableBody = document.getElementById("transactions-table-body");
         tableBody.innerHTML = "";
+
+
 
 
         state.transactions.slice(0, 5).forEach((transaction) => {
           const row = document.createElement("tr");
 
 
+
+
           const dateCell = document.createElement("td");
           dateCell.textContent = transaction.date;
 
 
+
+
           const descriptionCell = document.createElement("td");
           descriptionCell.textContent = transaction.description;
+
+
 
 
           const accountCell = document.createElement("td");
@@ -1154,6 +1360,8 @@
             transaction.account.charAt(0).toUpperCase() +
             transaction.account.slice(1);
           accountCell.appendChild(badge);
+
+
 
 
           const amountCell = document.createElement("td");
@@ -1169,15 +1377,21 @@
               : formatCurrency(transaction.amount);
 
 
+
+
           row.appendChild(dateCell);
           row.appendChild(descriptionCell);
           row.appendChild(accountCell);
           row.appendChild(amountCell);
 
 
+
+
           tableBody.appendChild(row);
         });
       }
+
+
 
 
       // Modal functions
@@ -1186,12 +1400,16 @@
       }
 
 
+
+
       function closeAllModals() {
         const modals = document.querySelectorAll(".modal");
         modals.forEach((modal) => {
           modal.style.display = "none";
         });
       }
+
+
 
 
       // Add a new transaction
@@ -1203,6 +1421,8 @@
         const formattedDate = `${month} ${day}, ${year}`;
 
 
+
+
         state.transactions.unshift({
           date: formattedDate,
           description,
@@ -1211,8 +1431,12 @@
         });
 
 
+
+
         updateUI();
       }
+
+
 
 
       // Interest calculator functions
@@ -1228,8 +1452,12 @@
         );
 
 
+
+
         let balance = principal;
         let totalContributions = principal;
+
+
 
 
         // Calculate compound interest monthly
@@ -1239,13 +1467,19 @@
           totalContributions += monthlyContribution;
 
 
+
+
           // Add monthly interest (annual rate / 12)
           balance += balance * (rate / 12);
         }
 
 
+
+
         const interestEarned = balance - totalContributions;
         const growthPercentage = (interestEarned / totalContributions) * 100;
+
+
 
 
         // Update the results
@@ -1259,9 +1493,13 @@
           growthPercentage.toFixed(1) + "%";
 
 
+
+
         // Create data for chart (simplified version)
         createGrowthChart(principal, rate, years, monthlyContribution);
       }
+
+
 
 
       function createGrowthChart(principal, rate, years, monthlyContribution) {
@@ -1274,14 +1512,20 @@
       }
 
 
+
+
       // Initialize the application
       function init() {
         // Update UI with initial state
         updateUI();
 
 
+
+
         // Initial interest calculation
         calculateCompoundInterest();
+
+
 
 
         // Set up event listeners for sliders
@@ -1293,12 +1537,16 @@
           });
 
 
+
+
         document
           .getElementById("time-period")
           .addEventListener("input", function () {
             document.getElementById("time-period-value").textContent =
               this.value + " years";
           });
+
+
 
 
         // Set up event listeners for modals
@@ -1320,12 +1568,16 @@
           );
 
 
+
+
         // Set up event listeners for modal close buttons
         document
           .querySelectorAll(".close-modal, .cancel-modal")
           .forEach((button) => {
             button.addEventListener("click", closeAllModals);
           });
+
+
 
 
         // Set up event listeners for transaction actions
@@ -1340,12 +1592,16 @@
               "Deposit";
 
 
+
+
             if (amount > 0) {
               state.checkingBalance += amount;
               addTransaction(description, "checking", amount);
               closeAllModals();
             }
           });
+
+
 
 
         document
@@ -1359,6 +1615,8 @@
               "Withdrawal";
 
 
+
+
             if (amount > 0 && amount <= state.checkingBalance) {
               state.checkingBalance -= amount;
               addTransaction(description, "checking", -amount);
@@ -1367,6 +1625,8 @@
               alert("Insufficient funds in checking account.");
             }
           });
+
+
 
 
         document
@@ -1380,12 +1640,16 @@
               "Deposit";
 
 
+
+
             if (amount > 0) {
               state.savingsBalance += amount;
               addTransaction(description, "savings", amount);
               closeAllModals();
             }
           });
+
+
 
 
         document
@@ -1399,14 +1663,20 @@
               "Transfer to Checking";
 
 
+
+
             if (amount > 0 && amount <= state.savingsBalance) {
               state.savingsBalance -= amount;
               state.checkingBalance += amount;
 
 
+
+
               // Add two transactions for the transfer
               addTransaction(description, "savings", -amount);
               addTransaction("Transfer from Savings", "checking", amount);
+
+
 
 
               closeAllModals();
@@ -1416,16 +1686,22 @@
           });
 
 
+
+
         // Set up interest simulator
         document
           .getElementById("calculate-interest")
           .addEventListener("click", calculateCompoundInterest);
 
 
+
+
         // Add click event for interest rate change
         document
           .getElementById("current-rate")
           .addEventListener("click", () => openModal("change-interest-modal"));
+
+
 
 
         document
@@ -1436,12 +1712,16 @@
             );
 
 
+
+
             if (newRate >= 0.1 && newRate <= 10) {
               state.interestRate = newRate;
               updateUI();
               closeAllModals();
             }
           });
+
+
 
 
         // Open Edit Budget modal
@@ -1453,6 +1733,8 @@
               state.monthlyExpenses;
             openModal("edit-budget-modal");
           });
+
+
 
 
         // Save budget changes
@@ -1475,11 +1757,23 @@
       }
 
 
+
+
       // Initialize when the DOM is fully loaded
       document.addEventListener("DOMContentLoaded", init);
     </script>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
 
