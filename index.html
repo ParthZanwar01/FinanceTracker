@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinStart - Personal Finance Tracker</title>
+    <style>
+      :root {
+        --primary: #2563eb;
+        --primary-light: #3b82f6;
+        --primary-dark: #1d4ed8;
+        --secondary: #10b981;
+        --secondary-light: #34d399;
+        --secondary-dark: #059669;
+        --dark: #1e293b;
+        --light: #f8fafc;
+        --gray: #94a3b8;
+        --gray-light: #cbd5e1;
+        --gray-dark: #475569;
+        --danger: #ef4444;
+        --warning: #eab308;
+      }
+
+
+
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      }
+
+
+
+
+      body {
+        background-color: var(--light);
+        color: var(--dark);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+
+
+
+      header {
+        background-color: var(--primary);
+        color: white;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+
+
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
+
+
+
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 1.5rem;
+      }
+
+
+
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.2s;
+      }
+
+
+
+
+      nav a:hover,
+      nav a.active {
+        background-color: var(--primary-dark);
+      }
+
+
+
+
+      main {
+        flex: 1;
+        padding: 2rem;
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+
+
+
+      .dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+
+
+
+      .card {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+
+
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+
+
+
+      .card-title {
+        color: var(--gray-dark);
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+
+
+
+      .card-balance {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--dark);
+      }
+
+
+
+
+      .card-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+
+
+
+      button {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+
+
+
+      button:hover {
+        background-color: var(--primary-dark);
+      }
+
+
+
+
+      button.secondary {
+        background-color: var(--secondary);
+      }
+
+
+
+
+      button.secondary:hover {
+        background-color: var(--secondary-dark);
+      }
+
+
+
+
+      button.outline {
+        background-color: transparent;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+      }
+
+
+
+
+      button.outline:hover {
+        background-color: var(--primary);
+        color: white;
+      }
+
+
+
+
+      button.danger {
+        background-color: var(--danger);
+      }
+
+
+
+
+      button.danger:hover {
+        background-color: #dc2626;
+      }
+
+
+
+
+      .transaction-history {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+      }
+
+
+
+
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--dark);
+      }
+
+
+
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+
+
+
+      th,
+      td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--gray-light);
+      }
+
+
+
+
+      th {
+        color: var(--gray-dark);
+        font-weight: 600;
+      }
+
+
+
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+
+
+
+      .transaction-amount {
+        font-weight: 600;
+      }
+
+
+
+
+      .transaction-positive {
+        color: var(--secondary);
+      }
+
+
+
+
+      .transaction-negative {
+        color: var(--danger);
+      }
+
+
+
+
+      .badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+
+
+
+      .badge-checking {
+        background-color: var(--primary-light);
+        color: white;
+      }
+
+
+
+
+      .badge-savings {
+        background-color: var(--secondary-light);
+        color: white;
+      }
+
+
+
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+      }
+
+
+
+
+      .modal-content {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+
+
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+
+
+
+      .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--dark);
+      }
+
+
+
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--gray);
+      }
+
+
+
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+
+
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--gray-dark);
+      }
+
+
+
+
+      input,
+      select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--gray-light);
+        border-radius: 0.5rem;
+        font-size: 1rem;
+      }
+
+
+
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+
+
+
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+
+
+
+      .tips-section {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+
+
+
+      .tips-container {
+        display: flex;
+        gap: 1.5rem;
+        overflow-x: auto;
+        padding: 0.5rem 0;
+      }
+
+
+
+
+      .tip-card {
+        background-color: var(--light);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        width: 300px;
+        flex-shrink: 0;
+        border-left: 4px solid var(--primary);
+      }
+
+
+
+
+      .tip-title {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--dark);
+      }
+
+
+
+
+      .tip-content {
+        color: var(--gray-dark);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+
+
+
+      .interest-simulator {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+      }
+
+
+
+
+      .simulator-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+
+
+
+      .simulator-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+
+
+
+      .simulator-results {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+
+
+
+      .result-card {
+        background-color: var(--light);
+        padding: 1rem;
+        border-radius: 0.75rem;
+      }
+
+
+
+
+      .result-title {
+        font-size: 0.9rem;
+        color: var(--gray-dark);
+        margin-bottom: 0.25rem;
+      }
+
+
+
+
+      .result-value {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--dark);
+      }
+
+
+
+
+      .chart-container {
+        height: 300px;
+        margin-top: 1.5rem;
+      }
+
+
+
+
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+      }
+
+
+
+
+      footer p {
+        margin-bottom: 1rem;
+      }
+
+
+
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+
+
+
+      .footer-links a {
+        color: var(--gray-light);
+        text-decoration: none;
+      }
+
+
+
+
+      .footer-links a:hover {
+        color: white;
+        text-decoration: underline;
+      }
+
+
+
+
+      .range-slider {
+        width: 100%;
+        -webkit-appearance: none;
+        height: 8px;
+        border-radius: 20px;
+        background: var(--gray-light);
+        outline: none;
+        margin-top: 0.5rem;
+      }
+
+
+
+
+      .range-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        background: var(--primary);
+        cursor: pointer;
+      }
+
+
+
+
+      .range-value {
+        display: block;
+        text-align: right;
+        font-weight: 600;
+        margin-top: 0.25rem;
+      }
+
+
+
+
+      @media (max-width: 768px) {
+        nav ul {
+          gap: 0.5rem;
+        }
+
+
+
+
+        nav a {
+          padding: 0.5rem;
+        }
+
+
+
+
+        main {
+          padding: 1rem;
+        }
+
+
+
+
+        .card-balance {
+          font-size: 1.5rem;
+        }
+
+
+
+
+        th,
+        td {
+          padding: 0.75rem 0.5rem;
+          font-size: 0.9rem;
+        }
+
+
+
+
+        .section-title {
+          font-size: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V11H13V17ZM13 9H11V7H13V9Z"
+            fill="white"
+          />
+        </svg>
+        FinStart - Sreeshan and Parth
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" class="active">Dashboard</a></li>
+        </ul>
+      </nav>
+    </header>
+
+
+
+
+    <main>
+      <h1 class="section-title">Financial Dashboard</h1>
+
+
+
+
+      <div class="dashboard">
+        <div class="card">
+          <div class="card-title">
+            <span>Checking Account</span>
+            <span class="badge badge-checking">Checking</span>
+          </div>
+          <div class="card-balance" id="checking-balance">$2,500.00</div>
+          <p>Available for daily expenses</p>
+          <div class="card-actions">
+            <button id="deposit-checking">Deposit</button>
+            <button id="withdraw-checking" class="outline">Withdraw</button>
+          </div>
+        </div>
+
+
+
+
+        <div class="card">
+          <div class="card-title">
+            <span>Savings Account</span>
+            <span class="badge badge-savings">Savings</span>
+          </div>
+          <div class="card-balance" id="savings-balance">$5,000.00</div>
+          <p>Annual Interest Rate: <span id="current-rate">1.5</span>%</p>
+          <div class="card-actions">
+            <button id="deposit-savings">Deposit</button>
+            <button id="transfer-to-checking" class="secondary">
+              Transfer to Checking
+            </button>
+          </div>
+        </div>
+
+
+
+
+        <div class="card">
+          <div class="card-title">Finance Summary</div>
+          <div>
+            <p>
+              <strong>Total Balance:</strong>
+              <span id="total-balance">$7,500.00</span>
+            </p>
+            <p>
+              <strong>Monthly Income:</strong>
+              <span id="finance-summary-income">$3,200.00</span>
+            </p>
+            <p>
+              <strong>Monthly Expenses:</strong>
+              <span id="finance-summary-expenses">$2,800.00</span>
+            </p>
+            <p>
+              <strong>Savings Rate:</strong>
+              <span id="savings-rate">12.5</span>%
+            </p>
+          </div>
+          <div class="card-actions">
+            <button id="edit-budget" class="outline">Edit Budget</button>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="interest-simulator">
+        <h2 class="section-title">Interest Rate Simulator</h2>
+        <p>
+          See how different interest rates and time periods affect your savings
+          growth.
+        </p>
+
+
+
+
+        <div class="simulator-container">
+          <div class="simulator-inputs">
+            <div class="form-group">
+              <label for="initial-amount">Initial Amount</label>
+              <input
+                type="number"
+                id="initial-amount"
+                value="5000"
+                min="100"
+                step="100"
+              />
+            </div>
+
+
+
+
+            <div class="form-group">
+              <label for="interest-rate">Interest Rate (% APY)</label>
+              <input
+                type="range"
+                id="interest-rate"
+                class="range-slider"
+                min="0.1"
+                max="10"
+                step="0.1"
+                value="1.5"
+              />
+              <span class="range-value" id="interest-rate-value">1.5%</span>
+            </div>
+
+
+
+
+            <div class="form-group">
+              <label for="time-period">Time Period (Years)</label>
+              <input
+                type="range"
+                id="time-period"
+                class="range-slider"
+                min="1"
+                max="30"
+                step="1"
+                value="5"
+              />
+              <span class="range-value" id="time-period-value">5 years</span>
+            </div>
+
+
+
+
+            <div class="form-group">
+              <label for="monthly-contribution">Monthly Contribution</label>
+              <input
+                type="number"
+                id="monthly-contribution"
+                value="100"
+                min="0"
+                step="10"
+              />
+            </div>
+
+
+
+
+            <button id="calculate-interest" class="secondary">
+              Calculate Growth
+            </button>
+          </div>
+
+
+
+
+          <div class="simulator-results">
+            <div class="result-card">
+              <div class="result-title">Final Balance</div>
+              <div class="result-value" id="final-balance">$11,616.47</div>
+            </div>
+
+
+
+
+            <div class="result-card">
+              <div class="result-title">Total Contributions</div>
+              <div class="result-value" id="total-contributions">
+                $11,000.00
+              </div>
+            </div>
+
+
+
+
+            <div class="result-card">
+              <div class="result-title">Interest Earned</div>
+              <div class="result-value" id="interest-earned">$616.47</div>
+            </div>
+
+
+
+
+            <div class="result-card">
+              <div class="result-title">Growth Percentage</div>
+              <div class="result-value" id="growth-percentage">5.6%</div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="chart-container" id="growth-chart"></div>
+      </div>
+
+
+
+
+      <div class="transaction-history">
+        <h2 class="section-title">Recent Transactions</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Account</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody id="transactions-table-body">
+            <tr>
+              <td>May 17, 2025</td>
+              <td>Salary Deposit</td>
+              <td><span class="badge badge-checking">Checking</span></td>
+              <td class="transaction-amount transaction-positive">
+                +$1,600.00
+              </td>
+            </tr>
+            <tr>
+              <td>May 15, 2025</td>
+              <td>Transfer to Savings</td>
+              <td><span class="badge badge-checking">Checking</span></td>
+              <td class="transaction-amount transaction-negative">-$500.00</td>
+            </tr>
+            <tr>
+              <td>May 15, 2025</td>
+              <td>Transfer from Checking</td>
+              <td><span class="badge badge-savings">Savings</span></td>
+              <td class="transaction-amount transaction-positive">+$500.00</td>
+            </tr>
+            <tr>
+              <td>May 12, 2025</td>
+              <td>Grocery Store</td>
+              <td><span class="badge badge-checking">Checking</span></td>
+              <td class="transaction-amount transaction-negative">-$87.35</td>
+            </tr>
+            <tr>
+              <td>May 10, 2025</td>
+              <td>Monthly Interest</td>
+              <td><span class="badge badge-savings">Savings</span></td>
+              <td class="transaction-amount transaction-positive">+$6.23</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+
+      <div class="tips-section">
+        <h2 class="section-title">Financial Tips & Tricks</h2>
+        <div class="tips-container">
+          <div class="tip-card">
+            <h3 class="tip-title">50/30/20 Rule</h3>
+            <p class="tip-content">
+              Allocate 50% of your income to needs, 30% to wants, and 20% to
+              savings and debt repayment. This simple budget can help you
+              maintain financial balance.
+            </p>
+          </div>
+          <div class="tip-card">
+            <h3 class="tip-title">Emergency Fund</h3>
+            <p class="tip-content">
+              Aim to save 3-6 months of living expenses in an easily accessible
+              account. This provides financial security in case of unexpected
+              events.
+            </p>
+          </div>
+          <div class="tip-card">
+            <h3 class="tip-title">Debt Snowball Method</h3>
+            <p class="tip-content">
+              Pay minimum payments on all debts, then focus extra money on your
+              smallest debt first. Once paid off, roll that payment into the
+              next smallest debt.
+            </p>
+          </div>
+          <div class="tip-card">
+            <h3 class="tip-title">Pay Yourself First</h3>
+            <p class="tip-content">
+              Set up automatic transfers to your savings account on payday
+              before spending on other things. This ensures consistent saving
+              habits.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+
+
+
+    <!-- Deposit to Checking Modal -->
+    <div class="modal" id="deposit-checking-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Deposit to Checking</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="form-group">
+          <label for="checking-deposit-amount">Amount</label>
+          <input
+            type="number"
+            id="checking-deposit-amount"
+            min="1"
+            step="1"
+            value="100"
+          />
+        </div>
+        <div class="form-group">
+          <label for="checking-deposit-description"
+            >Description (optional)</label
+          >
+          <input
+            type="text"
+            id="checking-deposit-description"
+            placeholder="e.g., Salary, Gift"
+          />
+        </div>
+        <div class="modal-actions">
+          <button class="outline cancel-modal">Cancel</button>
+          <button id="confirm-checking-deposit">Deposit</button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Withdraw from Checking Modal -->
+    <div class="modal" id="withdraw-checking-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Withdraw from Checking</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="form-group">
+          <label for="checking-withdraw-amount">Amount</label>
+          <input
+            type="number"
+            id="checking-withdraw-amount"
+            min="1"
+            step="1"
+            value="50"
+          />
+        </div>
+        <div class="form-group">
+          <label for="checking-withdraw-description"
+            >Description (optional)</label
+          >
+          <input
+            type="text"
+            id="checking-withdraw-description"
+            placeholder="e.g., Rent, Groceries"
+          />
+        </div>
+        <div class="modal-actions">
+          <button class="outline cancel-modal">Cancel</button>
+          <button id="confirm-checking-withdraw">Withdraw</button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Deposit to Savings Modal -->
+    <div class="modal" id="deposit-savings-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Deposit to Savings</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="form-group">
+          <label for="savings-deposit-amount">Amount</label>
+          <input
+            type="number"
+            id="savings-deposit-amount"
+            min="1"
+            step="1"
+            value="100"
+          />
+        </div>
+        <div class="form-group">
+          <label for="savings-deposit-description"
+            >Description (optional)</label
+          >
+          <input
+            type="text"
+            id="savings-deposit-description"
+            placeholder="e.g., Monthly Saving, Bonus"
+          />
+        </div>
+        <div class="modal-actions">
+          <button class="outline cancel-modal">Cancel</button>
+          <button id="confirm-savings-deposit" class="secondary">
+            Deposit
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Transfer to Checking Modal -->
+    <div class="modal" id="transfer-to-checking-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Transfer to Checking</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="form-group">
+          <label for="transfer-amount">Amount</label>
+          <input
+            type="number"
+            id="transfer-amount"
+            min="1"
+            step="1"
+            value="100"
+          />
+        </div>
+        <div class="form-group">
+          <label for="transfer-description">Description (optional)</label>
+          <input
+            type="text"
+            id="transfer-description"
+            placeholder="e.g., Monthly Transfer, Emergency"
+          />
+        </div>
+        <div class="modal-actions">
+          <button class="outline cancel-modal">Cancel</button>
+          <button id="confirm-transfer" class="secondary">Transfer</button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Change Interest Rate Modal -->
+    <div class="modal" id="change-interest-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Change Interest Rate</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="form-group">
+          <label for="new-interest-rate">New Interest Rate (%)</label>
+          <input
+            type="number"
+            id="new-interest-rate"
+            min="0.1"
+            max="10"
+            step="0.1"
+            value="1.5"
+          />
+          <p class="tip-content">
+            The average high-yield savings account APY is between 1% and 5%.
+          </p>
+        </div>
+        <div class="modal-actions">
+          <button class="outline cancel-modal">Cancel</button>
+          <button id="confirm-interest-change" class="secondary">
+            Update Rate
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Edit Budget Modal -->
+    <div class="modal" id="edit-budget-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Edit Budget</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="form-group">
+          <label for="edit-income">Monthly Income</label>
+          <input type="number" id="edit-income" min="0" step="1" />
+        </div>
+        <div class="form-group">
+          <label for="edit-expenses">Monthly Expenses</label>
+          <input type="number" id="edit-expenses" min="0" step="1" />
+        </div>
+        <div class="modal-actions">
+          <button class="outline cancel-modal">Cancel</button>
+          <button id="save-budget" class="secondary">Save</button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <footer>
+      <p>&copy; 2025 MoneyMentor. All rights reserved.</p>
+    </footer>
+
+
+
+
+    <script>
+      // State management
+      const state = {
+        checkingBalance: 2500,
+        savingsBalance: 5000,
+        interestRate: 1.5,
+        monthlyIncome: 3200,
+        monthlyExpenses: 2800,
+        transactions: [
+          {
+            date: "May 17, 2025",
+            description: "Salary Deposit",
+            account: "checking",
+            amount: 1600,
+          },
+          {
+            date: "May 15, 2025",
+            description: "Transfer to Savings",
+            account: "checking",
+            amount: -500,
+          },
+          {
+            date: "May 15, 2025",
+            description: "Transfer from Checking",
+            account: "savings",
+            amount: 500,
+          },
+          {
+            date: "May 12, 2025",
+            description: "Grocery Store",
+            account: "checking",
+            amount: -87.35,
+          },
+          {
+            date: "May 10, 2025",
+            description: "Monthly Interest",
+            account: "savings",
+            amount: 6.23,
+          },
+        ],
+      };
+
+
+
+
+      // Helper functions
+      function formatCurrency(amount) {
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(amount);
+      }
+
+
+
+
+      function formatDate(date) {
+        return new Date(date).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
+      }
+
+
+
+
+      function updateUI() {
+        // Update account balances
+        document.getElementById("checking-balance").textContent =
+          formatCurrency(state.checkingBalance);
+        document.getElementById("savings-balance").textContent = formatCurrency(
+          state.savingsBalance
+        );
+        document.getElementById("total-balance").textContent = formatCurrency(
+          state.checkingBalance + state.savingsBalance
+        );
+        document.getElementById("current-rate").textContent =
+          state.interestRate;
+
+
+
+
+        // Use state values for income/expenses
+        document.querySelector("#finance-summary-income").textContent =
+          formatCurrency(state.monthlyIncome);
+        document.querySelector("#finance-summary-expenses").textContent =
+          formatCurrency(state.monthlyExpenses);
+
+
+
+
+        // Calculate savings rate
+        const savingsRate =
+          ((state.monthlyIncome - state.monthlyExpenses) /
+            state.monthlyIncome) *
+          100;
+        document.getElementById("savings-rate").textContent = isFinite(
+          savingsRate
+        )
+          ? savingsRate.toFixed(1)
+          : "0.0";
+
+
+
+
+        // Update transaction table
+        const tableBody = document.getElementById("transactions-table-body");
+        tableBody.innerHTML = "";
+
+
+
+
+        state.transactions.slice(0, 5).forEach((transaction) => {
+          const row = document.createElement("tr");
+
+
+
+
+          const dateCell = document.createElement("td");
+          dateCell.textContent = transaction.date;
+
+
+
+
+          const descriptionCell = document.createElement("td");
+          descriptionCell.textContent = transaction.description;
+
+
+
+
+          const accountCell = document.createElement("td");
+          const badge = document.createElement("span");
+          badge.className = `badge badge-${transaction.account}`;
+          badge.textContent =
+            transaction.account.charAt(0).toUpperCase() +
+            transaction.account.slice(1);
+          accountCell.appendChild(badge);
+
+
+
+
+          const amountCell = document.createElement("td");
+          amountCell.className = "transaction-amount";
+          amountCell.classList.add(
+            transaction.amount >= 0
+              ? "transaction-positive"
+              : "transaction-negative"
+          );
+          amountCell.textContent =
+            transaction.amount >= 0
+              ? `+${formatCurrency(transaction.amount)}`
+              : formatCurrency(transaction.amount);
+
+
+
+
+          row.appendChild(dateCell);
+          row.appendChild(descriptionCell);
+          row.appendChild(accountCell);
+          row.appendChild(amountCell);
+
+
+
+
+          tableBody.appendChild(row);
+        });
+      }
+
+
+
+
+      // Modal functions
+      function openModal(modalId) {
+        document.getElementById(modalId).style.display = "flex";
+      }
+
+
+
+
+      function closeAllModals() {
+        const modals = document.querySelectorAll(".modal");
+        modals.forEach((modal) => {
+          modal.style.display = "none";
+        });
+      }
+
+
+
+
+      // Add a new transaction
+      function addTransaction(description, account, amount) {
+        const today = new Date();
+        const month = today.toLocaleString("default", { month: "short" });
+        const day = today.getDate();
+        const year = today.getFullYear();
+        const formattedDate = `${month} ${day}, ${year}`;
+
+
+
+
+        state.transactions.unshift({
+          date: formattedDate,
+          description,
+          account,
+          amount,
+        });
+
+
+
+
+        updateUI();
+      }
+
+
+
+
+      // Interest calculator functions
+      function calculateCompoundInterest() {
+        const principal = parseFloat(
+          document.getElementById("initial-amount").value
+        );
+        const rate =
+          parseFloat(document.getElementById("interest-rate").value) / 100;
+        const years = parseInt(document.getElementById("time-period").value);
+        const monthlyContribution = parseFloat(
+          document.getElementById("monthly-contribution").value
+        );
+
+
+
+
+        let balance = principal;
+        let totalContributions = principal;
+
+
+
+
+        // Calculate compound interest monthly
+        for (let month = 1; month <= years * 12; month++) {
+          // Add monthly contribution
+          balance += monthlyContribution;
+          totalContributions += monthlyContribution;
+
+
+
+
+          // Add monthly interest (annual rate / 12)
+          balance += balance * (rate / 12);
+        }
+
+
+
+
+        const interestEarned = balance - totalContributions;
+        const growthPercentage = (interestEarned / totalContributions) * 100;
+
+
+
+
+        // Update the results
+        document.getElementById("final-balance").textContent =
+          formatCurrency(balance);
+        document.getElementById("total-contributions").textContent =
+          formatCurrency(totalContributions);
+        document.getElementById("interest-earned").textContent =
+          formatCurrency(interestEarned);
+        document.getElementById("growth-percentage").textContent =
+          growthPercentage.toFixed(1) + "%";
+
+
+
+
+        // Create data for chart (simplified version)
+        createGrowthChart(principal, rate, years, monthlyContribution);
+      }
+
+
+
+
+      function createGrowthChart(principal, rate, years, monthlyContribution) {
+        // This is a placeholder for chart creation
+        // In a real implementation, you would use a library like Chart.js
+        const chartContainer = document.getElementById("growth-chart");
+        chartContainer.innerHTML = `<div style="height: 100%; display: flex; align-items: center; justify-content: center; background-color: var(--light); border-radius: 0.75rem; color: var(--gray-dark);">
+                <p>Growth chart would display here with a charting library.<br>This would show the balance growth over ${years} years.</p>
+            </div>`;
+      }
+
+
+
+
+      // Initialize the application
+      function init() {
+        // Update UI with initial state
+        updateUI();
+
+
+
+
+        // Initial interest calculation
+        calculateCompoundInterest();
+
+
+
+
+        // Set up event listeners for sliders
+        document
+          .getElementById("interest-rate")
+          .addEventListener("input", function () {
+            document.getElementById("interest-rate-value").textContent =
+              this.value + "%";
+          });
+
+
+
+
+        document
+          .getElementById("time-period")
+          .addEventListener("input", function () {
+            document.getElementById("time-period-value").textContent =
+              this.value + " years";
+          });
+
+
+
+
+        // Set up event listeners for modals
+        document
+          .getElementById("deposit-checking")
+          .addEventListener("click", () => openModal("deposit-checking-modal"));
+        document
+          .getElementById("withdraw-checking")
+          .addEventListener("click", () =>
+            openModal("withdraw-checking-modal")
+          );
+        document
+          .getElementById("deposit-savings")
+          .addEventListener("click", () => openModal("deposit-savings-modal"));
+        document
+          .getElementById("transfer-to-checking")
+          .addEventListener("click", () =>
+            openModal("transfer-to-checking-modal")
+          );
+
+
+
+
+        // Set up event listeners for modal close buttons
+        document
+          .querySelectorAll(".close-modal, .cancel-modal")
+          .forEach((button) => {
+            button.addEventListener("click", closeAllModals);
+          });
+
+
+
+
+        // Set up event listeners for transaction actions
+        document
+          .getElementById("confirm-checking-deposit")
+          .addEventListener("click", function () {
+            const amount = parseFloat(
+              document.getElementById("checking-deposit-amount").value
+            );
+            const description =
+              document.getElementById("checking-deposit-description").value ||
+              "Deposit";
+
+
+
+
+            if (amount > 0) {
+              state.checkingBalance += amount;
+              addTransaction(description, "checking", amount);
+              closeAllModals();
+            }
+          });
+
+
+
+
+        document
+          .getElementById("confirm-checking-withdraw")
+          .addEventListener("click", function () {
+            const amount = parseFloat(
+              document.getElementById("checking-withdraw-amount").value
+            );
+            const description =
+              document.getElementById("checking-withdraw-description").value ||
+              "Withdrawal";
+
+
+
+
+            if (amount > 0 && amount <= state.checkingBalance) {
+              state.checkingBalance -= amount;
+              addTransaction(description, "checking", -amount);
+              closeAllModals();
+            } else {
+              alert("Insufficient funds in checking account.");
+            }
+          });
+
+
+
+
+        document
+          .getElementById("confirm-savings-deposit")
+          .addEventListener("click", function () {
+            const amount = parseFloat(
+              document.getElementById("savings-deposit-amount").value
+            );
+            const description =
+              document.getElementById("savings-deposit-description").value ||
+              "Deposit";
+
+
+
+
+            if (amount > 0) {
+              state.savingsBalance += amount;
+              addTransaction(description, "savings", amount);
+              closeAllModals();
+            }
+          });
+
+
+
+
+        document
+          .getElementById("confirm-transfer")
+          .addEventListener("click", function () {
+            const amount = parseFloat(
+              document.getElementById("transfer-amount").value
+            );
+            const description =
+              document.getElementById("transfer-description").value ||
+              "Transfer to Checking";
+
+
+
+
+            if (amount > 0 && amount <= state.savingsBalance) {
+              state.savingsBalance -= amount;
+              state.checkingBalance += amount;
+
+
+
+
+              // Add two transactions for the transfer
+              addTransaction(description, "savings", -amount);
+              addTransaction("Transfer from Savings", "checking", amount);
+
+
+
+
+              closeAllModals();
+            } else {
+              alert("Insufficient funds in savings account.");
+            }
+          });
+
+
+
+
+        // Set up interest simulator
+        document
+          .getElementById("calculate-interest")
+          .addEventListener("click", calculateCompoundInterest);
+
+
+
+
+        // Add click event for interest rate change
+        document
+          .getElementById("current-rate")
+          .addEventListener("click", () => openModal("change-interest-modal"));
+
+
+
+
+        document
+          .getElementById("confirm-interest-change")
+          .addEventListener("click", function () {
+            const newRate = parseFloat(
+              document.getElementById("new-interest-rate").value
+            );
+
+
+
+
+            if (newRate >= 0.1 && newRate <= 10) {
+              state.interestRate = newRate;
+              updateUI();
+              closeAllModals();
+            }
+          });
+
+
+
+
+        // Open Edit Budget modal
+        document
+          .getElementById("edit-budget")
+          .addEventListener("click", function () {
+            document.getElementById("edit-income").value = state.monthlyIncome;
+            document.getElementById("edit-expenses").value =
+              state.monthlyExpenses;
+            openModal("edit-budget-modal");
+          });
+
+
+
+
+        // Save budget changes
+        document
+          .getElementById("save-budget")
+          .addEventListener("click", function () {
+            const income = parseFloat(
+              document.getElementById("edit-income").value
+            );
+            const expenses = parseFloat(
+              document.getElementById("edit-expenses").value
+            );
+            if (income >= 0 && expenses >= 0) {
+              state.monthlyIncome = income;
+              state.monthlyExpenses = expenses;
+              updateUI();
+              closeAllModals();
+            }
+          });
+      }
+
+
+
+
+      // Initialize when the DOM is fully loaded
+      document.addEventListener("DOMContentLoaded", init);
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
