@@ -5,6 +5,8 @@ public class Client {
     private String lastName;
     private String email;
     private String phoneNumber;
+    private CheckingAccount checkingAccount;
+    private SavingsAccount savingsAccount;
 
     public Client(String id, String firstName, String lastName, String email, String phoneNumber) {
         this.id = id;
@@ -12,6 +14,8 @@ public class Client {
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        checkingAccount = new CheckingAccount("123", 0, this);
+        savingsAccount = new SavingsAccount("456", 0, this);
     }
 
 
